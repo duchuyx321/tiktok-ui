@@ -1,0 +1,38 @@
+.wrapper{
+    width: 100%;
+    padding: 9px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+}
+.info{
+    flex : 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.useName{
+    font-size: 16px;
+    color: var(--text-color);
+    font-weight: 600;
+    line-height: 21px;
+    .useName-Check{
+        width: 14px;
+        height: 14px;
+        color: rgb(32, 213, 236);
+        margin-left: 5px;
+    }
+}
+.name{
+    font-size: 14px;
+    line-height: 18px;
+    color:  rgba(22, 24, 35, 0.5);
+    font-weight: 400;
+}
