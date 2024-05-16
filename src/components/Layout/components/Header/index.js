@@ -1,19 +1,20 @@
 import {useState,useEffect} from "react";
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // import thư viện icon vừa mới i về 
-import { faFileCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import {  faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' // import thư viện icon vừa mới i về 
+import { faPlus, faMagnifyingGlass, faSpinner, faCircleXmark, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 import images from '~/assets/images';
 import style from '~/components/Layout/components/Header/Header.module.scss';
+import Button from "~/components/Button";
 import { Wrapper as PopperWrapper } from "~/components/popper";
 import AccountsItem from "~/components/AccountsItem";
+import Menu from "~/components/menu";
 
 
 const cx = classNames.bind(style);
 
-console.log(images) // lấy default trong nó thì mới có ảnh
+console.log(images); // lấy default trong nó thì mới có ảnh
 
 function Home () {
     const [visible,setVisible] = useState([]);
@@ -22,7 +23,13 @@ function Home () {
         setTimeout( ()=>{
             setVisible([1,2,3,4]);
         },0)
-    })
+    },[])
+
+    const [menu,setMenu] = useState(true);
+
+    useEffect (() =>{
+
+    }, [menu]);
 
     return (
         <div className={cx("wrapper")}>
@@ -35,7 +42,7 @@ function Home () {
                                         <div className={cx("search-result")} tabIndex="-1" {...attrs}>
                                             <PopperWrapper>
                                                     <h4 className={cx('search-title')}>
-                                                        Accounts
+                                                        <div>Accounts</div>
                                                         <AccountsItem/>
                                                         <AccountsItem/>
                                                         <AccountsItem/>
@@ -53,7 +60,7 @@ function Home () {
                                 />
                                 {/* clear */}
                                 <button className={cx('clear')}>
-                                <FontAwesomeIcon icon={faCircleXmark}  className={cx("clear-icon")}/>
+                                <FontAwesomeIcon icon={faCircleXmark} />
                                 </button>
                                 {/* load  clear*/}
                                 <FontAwesomeIcon icon={faSpinner} className={cx("load")}></FontAwesomeIcon>
@@ -63,7 +70,30 @@ function Home () {
                             </div>
                     </Tippy>
 
-                    <div className={cx("action")}></div>
+                    <div className={cx("action")}>
+                        <div className = {cx("upload")}>
+                            <FontAwesomeIcon icon={faPlus} className={cx("upload-icon")} />
+                            <span>Tải Lên</span>
+                        </div>
+                        <Button to = "/following" onClick={() => {alert("login")}}> Đăng Nhập </Button>
+
+                        <Tippy 
+                            visible = {menu}
+                            render={(pops) => (
+                                <div className = {cx("menu")}>
+                                    <PopperWrapper>
+                                        <div className = {cx("menu-tools")}>
+                                                <Menu/>
+                                        </div>
+                                    </PopperWrapper>
+                                </div>
+                            )}
+                        >
+                            <div className ={cx("extend")}>
+                                <FontAwesomeIcon icon= {faEllipsisVertical} />
+                            </div>
+                        </Tippy>
+                    </div>
                 </div>
         </div>
     )

@@ -4,6 +4,8 @@
     --search-hight: 46px;
     --search-width: 361px;
     --search-btn-width:52px;
+    --action-width: 270px;
+    --action-hight: 36px;
 }
 
 .inner {
@@ -64,7 +66,10 @@
     font-size: 1.4rem;
     font-weight: 600;
     color: rgba(22, 24, 35, 0.5);
+    // padding: 
 }
+
+
 
 .clear,
 .load{
@@ -112,5 +117,38 @@
     
 }
 .action {
+    width: var(--action-width);
+    height: var(--action-hight);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.upload{
+    min-width: 110px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 700;
+    background-color: #ffff;
+    justify-content: center;
+    padding: 0 16px;
+    cursor: pointer;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    .upload-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
 
+.extend{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    padding: 0 4px;
 }
