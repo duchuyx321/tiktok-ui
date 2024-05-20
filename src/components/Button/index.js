@@ -4,14 +4,32 @@ import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-function Button({to, href, primary, children, onClick}) {
+function Button({
+    to,
+     href,
+     primary = false,
+     outline  = false,
+     disabled = false,
+     text = false,
+     small = false,
+     large = false,
+     leftIcon = false,
+     rightIcon = false,
+     children,
+     onClick,
+     rounded,
+      ...passPops
+    }) {
 
     let Components =  "button";
 
     let props = {
         onClick,
+        ...passPops
     }
     
+
+
     if(to) {
         props.to = to;
         Components = Link;
@@ -20,10 +38,21 @@ function Button({to, href, primary, children, onClick}) {
         Components = "a";
     }
 
-    const classes = cx("wrapper");
+    const classes = cx("wrapper", {
+        primary,
+        outline,
+        text,
+        small,
+        large,
+        disabled,
+        rounded
+    });
+    console.log();
     return ( 
         <Components className ={classes} {...props}>
-            <span>{children}</span>
+            {leftIcon && <span className={cx("icon")}>{leftIcon}</span>}
+            <span className={cx("title")}>{children}</span>
+            {rightIcon && <span className="icon">{rightIcon}</span>}
         </Components>
      );
 }

@@ -1,24 +1,97 @@
 .wrapper {
     min-width: 110px;
-    height: 100%;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    line-height: 21px;
+    background: transparent;
+    border: 1px solid transparent;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 700;
+    + .wrapper {
+        margin-left: 16px;
+    }
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+// type button 
+.rounded{
+    padding: 0 8px;
+    border-color: rgba(22, 24, 35, 0.12);
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(22, 24, 35, 0.75);
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
+    border-radius: 52px;
+    line-height: 30px;
+    &:hover{
+        border-color: rgba(22, 24, 35, 0.2);
+        background-color: rgb(255, 255, 255);
+    }
+}
+ // khi sữ dụng cả rounded và các nút khác thì nó không làm thay đổi bên trong
+.primary{
     background-color: var(--primary);
     color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 21px;
-    font-weight: 700;
-    cursor: pointer;
+    border-color: var(--primary);
+    
     &:hover{
+    border-color: var(--primary);
         background: linear-gradient(
             0deg,
             rgba(0, 0, 0, 0.06),
             rgba(0, 0, 0, 0.06)),
             rgb(254, 44, 85);
     }
-    &:active {
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)), rgb(254, 44, 85);
+}
+
+.outline {
+    color: var(--primary);
+    border-color: currentColor;
+    &:hover {
+        border-color: currentColor;
+        background-color: rgba(254,44,84,0.06);
     }
+}
+
+.text {
+    
+   &:hover {
+        text-decoration: underline;
+   }
+}
+
+
+// disabled 
+
+
+
+// size button 
+.small {
+    min-width: 56px;
+    min-height: 25px;
+    padding: 4px 8px;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+}
+
+.large{
+    min-height: 48px;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 600;
+    &:hover {
+        background-color: rgba(254, 44, 85, 0.06);
+    }
+}   
+
+// icons 
+
+.icon + .title, .title + .icon {
+    margin-left: 8px;
 }
