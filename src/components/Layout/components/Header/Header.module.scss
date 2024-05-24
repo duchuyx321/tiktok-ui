@@ -118,7 +118,7 @@
 .action {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
 }
 .upload{
     min-width: 110px;
@@ -156,4 +156,21 @@
     padding: 4px 8px;
     background-color: transparent;
     cursor: pointer;
+}
+
+.action-btn {
+    font-size: 2.2rem;
+    color:  rgb(22, 24, 35);
+    padding: 4px 8px;
+    background: transparent;
+    margin: 0 1.2rem;
+    cursor: pointer;
+}
+.currentUse-avatar{
+    width: 3.2rem;
+    height: 3.2rem;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 12px;
 }

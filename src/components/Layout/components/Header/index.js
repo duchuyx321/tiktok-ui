@@ -1,8 +1,11 @@
 
 import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
+import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' // import thư viện icon vừa mới i về 
-import {  faMagnifyingGlass, faSpinner, faCircleXmark, faPlus, faLightbulb, faEllipsisVertical, faEarthAsia, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import {  faMagnifyingGlass, faSpinner, faCircleXmark, faPlus, faLightbulb, faEllipsisVertical, faEarthAsia, faCircleQuestion, faUserLarge, faBookmark, faCoins, faVideo, faGear, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 import images from '~/assets/images';
 import style from '~/components/Layout/components/Header/Header.module.scss';
@@ -10,8 +13,8 @@ import Button from "~/components/Button";
 import { Wrapper as PopperWrapper } from "~/components/popper";
 import AccountsItem from "~/components/AccountsItem";
 import Menu from '~/components/popper/menu';
-import { faKeyboard } from '@fortawesome/free-regular-svg-icons';
-import { Children } from 'react';
+import { faKeyboard, faMessage, faPaperPlane } from '@fortawesome/free-regular-svg-icons';
+
 
 
 
@@ -27,18 +30,24 @@ const MenuItem =  [
     },
     {
         iconLeft: <FontAwesomeIcon icon={faEarthAsia} />,
-        title: "Tiếng Việt",
-        Children: [
-            {
-                code: "en",
-                title: "English", 
-                
-            },
-            {
-                code: "vi",
-                title: " Tiếng Việt "
-            },
-        ]
+        title: "Language",
+        children: {
+            title : "Language",
+            data: [
+
+                {
+                    type : "language",
+                    code: "en",
+                    title: "English", 
+                    
+                },
+                {
+                    type : "language",
+                    code: "vi",
+                    title: " Tiếng Việt "
+                },
+            ]
+        }
     }, 
     {
         iconLeft: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -52,20 +61,51 @@ const MenuItem =  [
 
 ]
 
-console.log(images); // lấy default trong nó thì mới có ảnh
+const MENU_ITEM =[
+    {
+        iconLeft: <FontAwesomeIcon icon={faUserLarge} />,
+        title: "Xem Hồ sơ",
+        to: "/prototype"
+    },
+    {
+        iconLeft: <FontAwesomeIcon icon={faBookmark} />,
+        title: "Yêu Thích",
+    },
+    {
+        iconLeft: <FontAwesomeIcon icon={faCoins} />,
+        title: "Nhận Xu",
+    },
+    {
+        iconLeft: <FontAwesomeIcon icon={faVideo} />,
+        title: "LIVE Studio",
+    },
+    {
+        iconLeft: <FontAwesomeIcon icon={faGear} />,
+        title: "Cài Đặt",
+    },
+    ...MenuItem,
+    {
+        iconLeft: <FontAwesomeIcon icon={faArrowRightToBracket} />,
+        title: "Đăng Xuất"
+    },
+]
+
 
 function Home () {
 
+    // handle logic
+    const handleMenuOnchange = (item) =>{
+        console.log(item)
 
+    }
 
-
-
+    const currentUse = true;
     return (
         <div className={cx("wrapper")}>
                 <div className={cx("inner")}>
                     <img src={images.logo.default}  alt='tiktok' />
                     
-                    <Tippy
+                    <HeadlessTippy
                         interactive = {true}
                         appendTo={document.body}
                         render={attrs => (
@@ -98,15 +138,37 @@ function Home () {
                                     <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
                                 </button>
                             </div>
-                    </Tippy>
+                    </HeadlessTippy>
 
                     <div className={cx("action")}>
                         <Button outline to = "/upload" leftIcon = {<FontAwesomeIcon icon={faPlus} />}>Upload</Button>
-                        <Button primary  >Đăng nhập</Button>
-                        <Menu items={MenuItem}>
-                            <button className={cx("more-btn")}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </button>
+                            {currentUse ?
+                                <>
+                                    <Tippy delay={[0,200]} content = "Tin Nhắn" placement='bottom'>
+                                        <button className = {cx("action-btn")}>
+                                                <FontAwesomeIcon icon={faPaperPlane} />
+                                        </button>
+                                    </Tippy>
+                                    <Tippy delay={[0,200]} content = "Thông Báo " placement='bottom'  >
+                                        <button className = {cx("action-btn")}>
+                                                <FontAwesomeIcon icon={faMessage} />
+                                        </button>
+                                    </Tippy>
+
+                                </>
+                            :
+                                <Button primary  >Đăng nhập</Button>
+                            
+                            }
+                        <Menu items={currentUse ? MENU_ITEM : MenuItem} onChange={handleMenuOnchange}>
+                                {currentUse ? 
+                                    <img className= {cx("currentUse-avatar")} src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/74d110fb8f26d311cbe94c9f8781e8d0~c5_100x100.jpeg?lk3s=a5d48078&nonce=71935&refresh_token=33f9b5ec1d223de724eb063a603629ee&x-expires=1716732000&x-signature=4QVAJgmPxqLMAaHYTh2MCdnuXTY%3D&shp=a5d48078&shcp=81f88b70"
+                                        alt='Lê Đức Huy '/>
+                                :
+                                    <button className={cx("more-btn")}>
+                                        <FontAwesomeIcon icon={faEllipsisVertical} />
+                                    </button>
+                                }
                         </Menu>
                     </div>
                 </div>
