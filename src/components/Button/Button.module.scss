@@ -1,14 +1,16 @@
 .wrapper {
-    min-width: 110px;
-    padding: 6px 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    padding: 9px 16px;
     border-radius: 4px;
     font-size: 1.6rem;
-    line-height: 21px;
-    background: transparent;
-    border: 1px solid transparent;
-    text-align: center;
-    cursor: pointer;
     font-weight: 700;
+    cursor: pointer;
+    background-color: var(--white);
+    border: 1px solid transparent;
+    user-select: none;
     + .wrapper {
         margin-left: 16px;
     }
@@ -16,6 +18,7 @@
         pointer-events: none;
         opacity: 0.5;
     }
+
 }
 
 // type button 
@@ -59,7 +62,6 @@
 }
 
 .text {
-    
    &:hover {
         text-decoration: underline;
    }
@@ -91,7 +93,11 @@
 }   
 
 // icons 
-
+.icon {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+}
 .icon + .title, .title + .icon {
     margin-left: 8px;
 }

@@ -16,6 +16,7 @@ function Button({
      leftIcon = false,
      rightIcon = false,
      children,
+     className,
      onClick,
      rounded,
       ...passPops
@@ -39,13 +40,15 @@ function Button({
     }
 
     const classes = cx("wrapper", {
+        [className] : className,
         primary,
         outline,
         text,
         small,
         large,
         disabled,
-        rounded
+        rounded,
+       
     });
     console.log();
     return ( 

@@ -2,37 +2,54 @@
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' // import thư viện icon vừa mới i về 
-import {  faMagnifyingGlass, faSpinner, faCircleXmark, faPlus, faLightbulb, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import {  faMagnifyingGlass, faSpinner, faCircleXmark, faPlus, faLightbulb, faEllipsisVertical, faEarthAsia, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 
 import images from '~/assets/images';
 import style from '~/components/Layout/components/Header/Header.module.scss';
 import Button from "~/components/Button";
 import { Wrapper as PopperWrapper } from "~/components/popper";
 import AccountsItem from "~/components/AccountsItem";
-import Menu from '~/components/menu';
+import Menu from '~/components/popper/menu';
+import { faKeyboard } from '@fortawesome/free-regular-svg-icons';
+import { Children } from 'react';
 
 
 
 
 const cx = classNames.bind(style);
 
+// khi làm như này thì có thể phân được nhiều cấp 
 const MenuItem =  [
     {
-        icon: <FontAwesomeIcon icon={faLightbulb} />,
+        iconLeft: <FontAwesomeIcon icon={faLightbulb} />,
         title: "Trung Tâm Nhà Sáng Tạo LIVE",
+        to: "/creators"
     },
     {
-        icon: "",
-        title: "",
+        iconLeft: <FontAwesomeIcon icon={faEarthAsia} />,
+        title: "Tiếng Việt",
+        Children: [
+            {
+                code: "en",
+                title: "English", 
+                
+            },
+            {
+                code: "vi",
+                title: " Tiếng Việt "
+            },
+        ]
     }, 
     {
-        icon: " ",
-        title: "",
+        iconLeft: <FontAwesomeIcon icon={faCircleQuestion} />,
+        title: "Phản Hồi Và Trợ Giúp ",
+        to : "/feedback"
     },
     {
-        icon: " ",
-        title: "",
-    }
+        iconLeft: <FontAwesomeIcon icon={faKeyboard} />,
+        title: "Phím Tắt trên bàn Phím",
+    },
+
 ]
 
 console.log(images); // lấy default trong nó thì mới có ảnh
