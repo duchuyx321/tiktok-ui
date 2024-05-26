@@ -1,37 +1,51 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 :root {
-
-    --primary : #fe2c55;
-    --black : #000;
-    --white : #fff;
-    --text-color: #333;
-
+    --primary: #fe2c55;
+    --black: #000;
+    --white: #fff;
+    --text-color: #161823;
 }
 
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
 html {
     font-size: 62.5%;
 }
 
-body{
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(/assets/font/TikTokDisplayFont-Bold.woff2);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(/assets/font/TikTokDisplayFont-Semibold.woff2);
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(/assets/font/TikTokFont-Bold.woff2);
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(/assets/font/TikTokFont-Regular.woff2);
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(/assets/font/TikTokFont-Semibold.woff2);
+    font-weight: 900;
+}
 
-    font-size: 1.6rem;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.5;
-    text-rendering: optimizeLegibility; 
-
-} 
-
-button,input {
+button,
+input {
+    font-family: 'IBM Plex Sans', sans-serif;
     outline: none;
     border: none;
 }
@@ -41,6 +55,10 @@ a[href] {
     text-decoration: none;
 }
 body {
+    font-size: 1.6rem;
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
     .tippy-box {
         text-decoration: none;
         border-radius: 8px;
@@ -51,10 +69,10 @@ body {
         color: rgb(255, 255, 255);
         padding: 4px 8px;
     }
-    .tippy-box[data-placement^=bottom]>.tippy-arrow:before {
+    .tippy-box[data-placement^='bottom'] > .tippy-arrow:before {
         top: -8px;
     }
-    .tippy-arrow:before{
+    .tippy-arrow:before {
         color: rgba(84, 84, 84, 0.92);
     }
 }

@@ -1,0 +1,14 @@
+.wrapper {
+    position: absolute;
+    min-width: 30px;
+    min-height: 20px;
+    font-size: 14px;
+    color: var(--white);
+    background: rgb(254, 44, 85);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0px;
+    right: -14px;
+}
