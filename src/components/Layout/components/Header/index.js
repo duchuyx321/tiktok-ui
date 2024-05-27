@@ -2,12 +2,8 @@ import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // import thư viện icon vừa mới i về
 import {
-    faMagnifyingGlass,
-    faSpinner,
-    faCircleXmark,
     faPlus,
     faLightbulb,
     faEllipsisVertical,
@@ -24,13 +20,12 @@ import {
 import images from '~/assets/images';
 import style from '~/components/Layout/components/Header/Header.module.scss';
 import Button from '~/components/Button';
-import { Wrapper as PopperWrapper } from '~/components/popper';
-import AccountsItem from '~/components/AccountsItem';
 import Menu from '~/components/popper/menu';
 import { faKeyboard } from '@fortawesome/free-regular-svg-icons';
 import { MessageIcon, NotifyIcon } from '~/components/icon';
 import SupMessage from '~/components/popper/SupMessage';
 import Image from '~/components/image';
+import Search from '~/components/Layout/components/Search';
 
 const cx = classNames.bind(style);
 
@@ -115,52 +110,13 @@ function Home() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
+                {/* Logo */}
                 <img src={images.logo.default} alt="tiktok" />
 
-                <HeadlessTippy
-                    interactive={true}
-                    appendTo={document.body}
-                    render={(attrs) => (
-                        <div
-                            className={cx('search-result')}
-                            tabIndex="-1"
-                            {...attrs}
-                        >
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>
-                                    <div>Accounts</div>
-                                    <AccountsItem />
-                                    <AccountsItem />
-                                    <AccountsItem />
-                                    <AccountsItem />
-                                </h4>
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-                        <input
-                            type="text"
-                            placeholder="Tìm Kiếm"
-                            spellCheck={false} // không báo lỗi chính tả khi nhập
-                        />
-                        {/* clear */}
-                        <button className={cx('clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        {/* load  clear*/}
-                        <FontAwesomeIcon
-                            icon={faSpinner}
-                            className={cx('load')}
-                        ></FontAwesomeIcon>
-                        <button className={cx('search-btn')}>
-                            <FontAwesomeIcon
-                                icon={faMagnifyingGlass}
-                            ></FontAwesomeIcon>
-                        </button>
-                    </div>
-                </HeadlessTippy>
+                {/* search */}
+                <Search />
 
+                {/* Action */}
                 <div className={cx('action')}>
                     <Button
                         outline
@@ -202,7 +158,7 @@ function Home() {
                         {currentUse ? (
                             <Image
                                 className={cx('currentUse-avatar')}
-                                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/74d110fb8f26d311cbe94c9f8781e8d0~c5_100x100.jpeg?lk3s=a5d48078&nonce=71935&refresh_token=33f9b5ec1d223de724eb063a603629ee&x-expires=1716732000&x-signature=4QVAJgmPxqLMAaHYTh2MCdnuXTY%3D&shp=a5d48078&shcp=81f88b70"
+                                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/74d110fdfsdfsd8f26d311cbe94c9f8781e8d0~c5_100x100.jpeg?lk3s=a5d48078&nonce=71935&refresh_token=33f9b5ec1d223de724eb063a603629ee&x-expires=1716732000&x-signature=4QVAJgmPxqLMAaHYTh2MCdnuXTY%3D&shp=a5d48078&shcp=81f88b70"
                                 alt="Lê Đức Huy "
                                 fallback="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/74d110fb8f26d311cbe94c9f8781e8d0~c5_100x100.jpeg?lk3s=a5d48078&nonce=71935&refresh_token=33f9b5ec1d223de724eb063a603629ee&x-expires=1716732000&x-signature=4QVAJgmPxqLMAaHYTh2MCdnuXTY%3D&shp=a5d48078&shcp=81f88b70"
                             />
