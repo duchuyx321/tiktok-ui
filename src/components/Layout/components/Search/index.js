@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+
 import 'tippy.js/dist/tippy.css';
 import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // import thư viện icon vừa mới i về
@@ -7,10 +8,13 @@ import {
     faCircleXmark,
     faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
+
+import * as searchService from '~/apiService/searchService';
 import style from '~/components/Layout/components/Search/Search.module.scss';
 import { Wrapper as PopperWrapper } from '~/components/popper';
 import AccountsItem from '~/components/AccountsItem';
 import { useEffect, useRef, useState } from 'react';
+import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(style);
 
@@ -20,27 +24,24 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    const debounced = useDebounce(searchValue, 500);
     const inputRef = useRef();
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
-        setLoading(true);
-        fetch(
-            `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-                searchValue,
-            )}&type=less`, // encodeURIComponent : mã hóa sang chuyển kí tự có % để tránh khi nhập trung với đường dẫn
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
-    }, [searchValue]);
+
+        const fetchAPI = async () => {
+            setLoading(true);
+
+            const result = await searchService.search(debounced);
+            setSearchResult(result);
+
+            setLoading(false);
+        };
+        fetchAPI();
+    }, [debounced]);
     const HandleClear = () => {
         setSearchValue('');
         setSearchResult([]);
