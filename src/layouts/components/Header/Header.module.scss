@@ -1,10 +1,13 @@
 .wrapper {
     width: 100%;
-    height: 60px;
+    height: var(--header-height-wrapper);
     --search-hight: 46px;
     --search-width: 361px;
     --search-btn-width: 52px;
     --action-width: 270px;
+    position: fixed;
+    background: var(--white);
+    z-index: 10;
 }
 
 // logo

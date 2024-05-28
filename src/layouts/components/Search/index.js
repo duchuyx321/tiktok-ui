@@ -9,8 +9,8 @@ import {
     faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 
-import * as searchService from '~/apiService/searchService';
-import style from '~/components/Layout/components/Search/Search.module.scss';
+import * as searchService from '~/service/searchService';
+import style from '~/layouts/components/Search/Search.module.scss';
 import { Wrapper as PopperWrapper } from '~/components/popper';
 import AccountsItem from '~/components/AccountsItem';
 import { useEffect, useRef, useState } from 'react';
@@ -50,6 +50,12 @@ function Search() {
     const handleHidden = () => {
         setShowResult(false);
     };
+    const handleOnChange = (e) => {
+        const value = e.target.value;
+        if (!value.startsWith(' ')) {
+            setSearchValue(value);
+        }
+    };
     return (
         <HeadlessTippy
             visible={searchResult.length > 0 && showResult}
@@ -75,7 +81,7 @@ function Search() {
                     type="text"
                     placeholder="Tìm Kiếm"
                     spellCheck={false} // không báo lỗi chính tả khi nhập
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleOnChange}
                     onFocus={() => setShowResult(true)}
                 />
                 {!!searchValue && !loading && (

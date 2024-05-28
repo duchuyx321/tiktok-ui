@@ -6,6 +6,10 @@
         margin-left: 0;
     }
 }
+// menu-body
+.menu-body {
+    overflow-y: auto;
+}
 
 // menu-list
 .menu-items {
@@ -27,6 +31,7 @@
     position: relative;
     height: 50px;
     margin-top: -8px;
+    flex-shrink: 0;
 }
 
 .header-btn {

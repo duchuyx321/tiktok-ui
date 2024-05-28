@@ -1,11 +1,12 @@
-import Button from '~/components/Button';
-
-import style from './Menu.module.scss';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+
+import Button from '~/components/Button';
+import style from './Menu.module.scss';
 
 const cx = classNames.bind(style);
 
-function MenuItem({ data, onClick }) {
+function MenuItem({ data, onClick = () => {} }) {
     const classes = cx('menu-items', {
         separate: data.separate,
     });
@@ -20,5 +21,10 @@ function MenuItem({ data, onClick }) {
         </Button>
     );
 }
+
+MenuItem.propTypes = {
+    data: PropTypes.object,
+    onClick: PropTypes.func,
+};
 
 export default MenuItem;

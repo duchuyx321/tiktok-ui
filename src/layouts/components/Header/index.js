@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // import thư viện icon vừa mới i về
 import {
     faPlus,
@@ -18,14 +18,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import images from '~/assets/images';
-import style from '~/components/Layout/components/Header/Header.module.scss';
+import config from '~/config';
+import style from '~/layouts/components/Header/Header.module.scss';
 import Button from '~/components/Button';
 import Menu from '~/components/popper/menu';
 import { faKeyboard } from '@fortawesome/free-regular-svg-icons';
 import { MessageIcon, NotifyIcon } from '~/components/icon';
 import SupMessage from '~/components/popper/SupMessage';
 import Image from '~/components/image';
-import Search from '~/components/Layout/components/Search';
+import Search from '~/layouts/components/Search';
 
 const cx = classNames.bind(style);
 
@@ -42,6 +43,106 @@ const MenuItem = [
         children: {
             title: 'Language',
             data: [
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: ' Tiếng Việt ',
+                },
                 {
                     type: 'language',
                     code: 'en',
@@ -70,12 +171,12 @@ const MENU_ITEM = [
     {
         iconLeft: <FontAwesomeIcon icon={faUserLarge} />,
         title: 'Xem Hồ sơ',
-        to: '/@duchuyx321',
+        to: config.routes.nickname,
     },
     {
         iconLeft: <FontAwesomeIcon icon={faBookmark} />,
         title: 'Yêu Thích',
-        to: '/',
+        to: config.routes.nickname,
     },
     {
         iconLeft: <FontAwesomeIcon icon={faCoins} />,
@@ -111,7 +212,10 @@ function Home() {
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 {/* Logo */}
-                <img src={images.logo.default} alt="tiktok" />
+
+                <Link to={config.routes.home}>
+                    <img src={images.logo.default} alt="tiktok" />
+                </Link>
 
                 {/* search */}
                 <Search />

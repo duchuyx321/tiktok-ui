@@ -11,8 +11,13 @@ const cx = classNames.bind(style);
 
 const defaultFn = () => {};
 
-function Menu({ children, items = [], onChange = defaultFn }) {
-    const [history, setHistory] = useState([{ data: items }]); // tạo mảng chửa một oject item để có thể xử lí thêm xóa
+function Menu({
+    children,
+    items = [],
+    hiddenOnClick = false,
+    onChange = defaultFn,
+}) {
+    const [history, setHistory] = useState([{ data: items }]); // tạo mảng chứa một oject item để có thể xử lí thêm xóa
     const current = history[history.length - 1];
     const renderItems = () => {
         return current.data.map((item, index) => {
@@ -35,9 +40,10 @@ function Menu({ children, items = [], onChange = defaultFn }) {
 
     return (
         <Tippy
-            interactive={true}
+            interactive
             delay={[0, 700]}
             offset={[12, 8]}
+            hideOnClick={hiddenOnClick}
             placement="bottom-end"
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
@@ -46,11 +52,13 @@ function Menu({ children, items = [], onChange = defaultFn }) {
                             <Header
                                 title="Language "
                                 onback={() => {
-                                    setHistory((prev) => prev.slice(0, prev.length - 1)); // lấy từ phần tử đầu đến gần cuối
+                                    setHistory((prev) =>
+                                        prev.slice(0, prev.length - 1),
+                                    ); // lấy từ phần tử đầu đến gần cuối
                                 }}
                             />
                         )}
-                        {renderItems()}
+                        <div className={cx('menu-body')}>{renderItems()}</div>
                     </PopperWrapper>
                 </div>
             )}
