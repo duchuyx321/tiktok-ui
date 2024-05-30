@@ -15,6 +15,7 @@
     input {
         flex: 1;
         height: 100%;
+        padding-right: 36px;
         font-size: 1.6rem;
         color: var(--black);
         background: transparent;
@@ -69,6 +70,8 @@
     animation: LoadingClear 1s linear infinite;
 }
 
+// search button
+
 .search-btn {
     width: var(--search-btn-width);
     height: 100%;
@@ -91,4 +94,9 @@
     from {
         transform: rotate(0deg);
     }
+}
+
+// clear button
+.clear-btn {
+    height: 100%;
 }

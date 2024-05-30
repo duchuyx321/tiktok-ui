@@ -10,6 +10,7 @@ function Button({
     href,
     primary = false,
     outline = false,
+    outlineText = false,
     disabled = false,
     text = false,
     small = false,
@@ -41,13 +42,13 @@ function Button({
         [className]: className,
         primary,
         outline,
+        outlineText,
         text,
         small,
         large,
         disabled,
         rounded,
     });
-    console.log();
     return (
         <Components className={classes} {...props}>
             {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
@@ -62,6 +63,7 @@ Button.propTypes = {
     href: PropTypes.string,
     primary: PropTypes.bool,
     outline: PropTypes.bool,
+    outlineText: PropTypes.bool,
     disabled: PropTypes.bool,
     text: PropTypes.bool,
     small: PropTypes.bool,

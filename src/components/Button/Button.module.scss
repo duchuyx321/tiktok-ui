@@ -18,11 +18,10 @@
         pointer-events: none;
         opacity: 0.5;
     }
-
 }
 
-// type button 
-.rounded{
+// type button
+.rounded {
     padding: 0 8px;
     border-color: rgba(22, 24, 35, 0.12);
     font-size: 14px;
@@ -31,23 +30,24 @@
     box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
     border-radius: 52px;
     line-height: 30px;
-    &:hover{
+    &:hover {
         border-color: rgba(22, 24, 35, 0.2);
         background-color: rgb(255, 255, 255);
     }
 }
- // khi sữ dụng cả rounded và các nút khác thì nó không làm thay đổi bên trong
-.primary{
+// khi sữ dụng cả rounded và các nút khác thì nó không làm thay đổi bên trong
+.primary {
     background-color: var(--primary);
     color: rgb(255, 255, 255);
     border-color: var(--primary);
-    
-    &:hover{
-    border-color: var(--primary);
+
+    &:hover {
+        border-color: var(--primary);
         background: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.06),
-            rgba(0, 0, 0, 0.06)),
+                0deg,
+                rgba(0, 0, 0, 0.06),
+                rgba(0, 0, 0, 0.06)
+            ),
             rgb(254, 44, 85);
     }
 }
@@ -57,22 +57,28 @@
     border-color: currentColor;
     &:hover {
         border-color: currentColor;
-        background-color: rgba(254,44,84,0.06);
+        background-color: rgba(254, 44, 84, 0.06);
     }
 }
 
 .text {
-   &:hover {
+    &:hover {
         text-decoration: underline;
-   }
+    }
 }
 
+.outlineText {
+    color: var(--text-color);
+    border-color: currentColor;
+    &:hover {
+        border-color: currentColor;
+        background-color: rgba(22, 24, 25, 0.06);
+    }
+}
 
-// disabled 
+// disabled
 
-
-
-// size button 
+// size button
 .small {
     min-width: 56px;
     min-height: 25px;
@@ -82,7 +88,7 @@
     }
 }
 
-.large{
+.large {
     min-height: 48px;
     font-size: 18px;
     line-height: 25px;
@@ -90,14 +96,15 @@
     &:hover {
         background-color: rgba(254, 44, 85, 0.06);
     }
-}   
+}
 
-// icons 
+// icons
 .icon {
     display: inline-block;
     width: 24px;
     text-align: center;
 }
-.icon + .title, .title + .icon {
+.icon + .title,
+.title + .icon {
     margin-left: 8px;
 }

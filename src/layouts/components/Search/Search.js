@@ -86,8 +86,11 @@ function Search() {
                 />
                 {!!searchValue && !loading && (
                     // btn clear
-                    <button className={cx('clear')} onClick={HandleClear}>
-                        <FontAwesomeIcon icon={faCircleXmark} />
+                    <button className={cx('clear-btn')} onClick={HandleClear}>
+                        <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            className={cx('clear')}
+                        />
                     </button>
                 )}
                 {/* load  clear*/}

@@ -223,7 +223,7 @@ function Home() {
                 {/* Action */}
                 <div className={cx('action')}>
                     <Button
-                        outline
+                        outlineText
                         to="/upload"
                         leftIcon={<FontAwesomeIcon icon={faPlus} />}
                     >
@@ -253,7 +253,9 @@ function Home() {
                             </Tippy>
                         </>
                     ) : (
-                        <Button primary>Đăng nhập</Button>
+                        <Button primary to="/">
+                            Đăng nhập
+                        </Button>
                     )}
                     <Menu
                         items={currentUse ? MENU_ITEM : MenuItem}
