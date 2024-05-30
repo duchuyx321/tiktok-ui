@@ -1,0 +1,66 @@
+.wrapper {
+    padding: 16px 0px;
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
+    cursor: pointer;
+}
+
+.Acc-btn {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--primary);
+    background-color: transparent;
+    padding: 0 8px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.avatar {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.useName {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.1rem;
+    margin-top: -2px;
+    color: var(--text-color);
+    text-overflow: ellipsis; // rộng quá thành dấu ...
+    overflow: hidden;
+    max-width: 145px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+.useName-Check {
+    width: 1.4rem;
+    height: 1.4rem;
+    color: var(--color-check);
+    margin-left: 3px;
+}
+.name {
+    font-size: 12px;
+    font-family: 400;
+    color: rgba(var(--text-color), 0.06);
+    text-overflow: ellipsis; // rộng quá thành dấu ...
+    overflow: hidden;
+    max-width: 145px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
