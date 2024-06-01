@@ -1,0 +1,145 @@
+.wrapper {
+    --color-text: rgba(255, 255, 255, 0.9);
+    --background-range: #ffffff57;
+    --width: 400px;
+    --height: 600px;
+}
+.wrapper-video {
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    padding: 2rem;
+    top: -2rem;
+}
+.video {
+    width: calc(var(--width));
+    height: var(--height);
+    object-fit: cover;
+    border-radius: 16px;
+}
+.wrapper-video .describe {
+    bottom: 8rem;
+}
+
+// describe
+.describe {
+    display: block;
+    position: absolute;
+    bottom: 2rem;
+    color: var(--color-text);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 2rem;
+    transition: bottom 0.4s ease;
+    transition-delay: 0.2s;
+    button {
+        background-color: transparent;
+        cursor: pointer;
+        outline: none;
+        color: var(--color-text);
+    }
+}
+
+.content {
+    width: calc(var(--width) - 5rem);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.title {
+    margin-left: 16px;
+}
+
+// controls
+.controls {
+    width: var(--width);
+    position: absolute;
+    bottom: 2.5rem;
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+}
+.controls-btn {
+    width: 4rem;
+    height: 4rem;
+    background-color: transparent;
+    color: var(--color-text);
+    font-size: 20px;
+}
+.navbar {
+    width: calc(100% - 5rem);
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.navbar:hover .zoom-in {
+    height: 5px;
+}
+
+.navbar-input {
+    width: 100%;
+    height: 2px;
+    appearance: none;
+    background-color: var(--background-range);
+    cursor: pointer;
+}
+
+.draw {
+    max-width: calc(100% - 7rem);
+    height: 2px;
+    position: absolute;
+    background-color: var(--color-text);
+    pointer-events: none;
+}
+
+.navbar-input::-webkit-slider-thumb {
+    width: 0;
+    height: 0;
+    appearance: none;
+}
+
+// volume
+
+.volume {
+    padding: 0 20px;
+    position: absolute;
+    top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.volume-btn {
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+    background-color: transparent;
+    color: var(--color-text);
+}
+
+.volume:hover .volume-background {
+    display: flex;
+}
+
+.volume-background {
+    align-items: center;
+    justify-content: center;
+    width: 6.4rem;
+    height: 2.5rem;
+    position: relative;
+    background-color: rgba(22, 24, 35, 0.34);
+    border-radius: 32px;
+    display: none;
+    z-index: 0;
+}
+
+.volume-input {
+    width: 5rem;
+    height: 4px;
+    position: absolute;
+    accent-color: var(--color-text);
+    background-color: var(--background-range);
+    border: none;
+}

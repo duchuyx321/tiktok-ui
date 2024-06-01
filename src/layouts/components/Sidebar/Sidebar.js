@@ -12,17 +12,16 @@ import { IconFollowing, IconHome, IconLive } from '~/components/icon';
 const cx = classNames.bind(style);
 
 function Sidebar() {
+    const current = true;
     const [suggestedUser, setSuggestedUser] = useState([]);
 
     useEffect(() => {
-        userService
-            .setSuggested()
-            .then((res) => {
-                setSuggestedUser(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        const fetchAPI = async () => {
+            const data = await userService.setSuggested();
+
+            return setSuggestedUser(data);
+        };
+        fetchAPI();
     }, []);
 
     return (
@@ -44,10 +43,12 @@ function Sidebar() {
                     icon={<IconLive />}
                 />
             </Menu>
-            <AccountsFollow
-                label="Các Tài khoản Đang Follow"
-                data={suggestedUser}
-            />
+            {current && (
+                <AccountsFollow
+                    label="Các Tài khoản Đang Follow"
+                    data={suggestedUser}
+                />
+            )}
         </aside>
     );
 }

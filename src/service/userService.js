@@ -1,11 +1,10 @@
 import * as request from '~/util/httpsRequest';
 
-export const setSuggested = async (page = 1, parPage = 5) => {
+export const setSuggested = async (page = 1) => {
     try {
-        const res = await request.get('users/suggested', {
+        const res = await request.get('me/followings', {
             params: {
                 page,
-                par_page: parPage,
             },
         });
         return res.data;
