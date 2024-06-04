@@ -37,7 +37,7 @@ function Search() {
 
             const result = await searchService.search(debounced);
             setSearchResult(result);
-
+            console.log(result);
             setLoading(false);
         };
         fetchAPI();
