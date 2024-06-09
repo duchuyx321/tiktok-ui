@@ -1,6 +1,6 @@
 import * as request from '~/util/httpsRequest';
 
-export const videos = async (type = 'for-you', page = '14') => {
+export const videos = async (type = 'for-you', page = '43') => {
     try {
         const res = await request.get('videos', {
             params: {

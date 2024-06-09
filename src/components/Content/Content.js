@@ -16,10 +16,13 @@ import { useState, useRef, useEffect } from 'react';
 
 import Style from './Content.module.scss';
 import { useElementOnScreen } from '~/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(Style);
+
 function Content({ data }) {
     const [playing, setPlaying] = useState(false);
+    const [like, setLike] = useState(false);
     const [width, setWidth] = useState('0');
     const [widthVolume, setWidthVolume] = useState('10');
     const [volume, setVolume] = useState('0.1');
@@ -33,9 +36,13 @@ function Content({ data }) {
         threshold: 0.3,
     };
 
+    const navigate = useNavigate();
+
     const isVisible = useElementOnScreen(options, videoRef);
     useEffect(() => {
         const video = videoRef.current;
+
+        setLike(video.is_liked);
 
         const handleOnVolume = () => {
             video.volume = volume;
@@ -107,6 +114,18 @@ function Content({ data }) {
             videoRef.current.play();
         }
         setPlaying(!playing);
+    };
+
+    const handleLink = () => {
+        navigate(`/@${data.user.nickname}`);
+    };
+    const CheckIsLike = (heart = false, favourite = false) => {
+        if (like && heart) {
+            return cx('toggle-btn', 'heart');
+        } else if (like && favourite) {
+            return cx('toggle-btn', 'favourite');
+        }
+        return cx('toggle-btn');
     };
     return (
         <div className={cx('wrapper')}>
@@ -186,7 +205,10 @@ function Content({ data }) {
 
             <div className={cx('toggle')}>
                 <div className={cx('toggle-wrapper')}>
-                    <button className={cx('toggle-btn')}>
+                    <button
+                        className={CheckIsLike(true)}
+                        onClick={() => setLike(!like)}
+                    >
                         <FontAwesomeIcon
                             icon={faHeart}
                             className={cx('toggle-heart')}
@@ -196,17 +218,19 @@ function Content({ data }) {
                 </div>
 
                 <div className={cx('toggle-wrapper')}>
-                    <button className={cx('toggle-btn')}>
+                    <button className={cx('toggle-btn')} onClick={handleLink}>
                         <FontAwesomeIcon icon={faCommentDots} />
                     </button>
                     <h5 className={cx('toggle-title')}>
-                        {' '}
-                        {data.comments_count}{' '}
+                        {data.comments_count}
                     </h5>
                 </div>
 
                 <div className={cx('toggle-wrapper')}>
-                    <button className={cx('toggle-btn')}>
+                    <button
+                        className={CheckIsLike(false, true)}
+                        onClick={() => setLike(!like)}
+                    >
                         <FontAwesomeIcon
                             icon={faBookmark}
                             className={cx('toggle-favourite')}
@@ -214,7 +238,6 @@ function Content({ data }) {
                     </button>
                     <h5 className={cx('toggle-title')}> {data.likes_count} </h5>
                 </div>
-
                 <div className={cx('toggle-wrapper')}>
                     <button className={cx('toggle-btn')}>
                         <FontAwesomeIcon

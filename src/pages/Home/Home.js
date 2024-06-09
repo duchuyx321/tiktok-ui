@@ -8,14 +8,16 @@ const cx = classNames.bind(Style);
 
 function Home() {
     const [render, setRender] = useState([]);
+    const [newPage, setNewPage] = useState('1');
+
     useEffect(() => {
-        const fetchAPI = async () => {
-            const result = await videoService.videos();
+        const fetchAPI = async (page = newPage) => {
+            const result = await videoService.videos('for-you', page);
             setRender(result);
         };
         window.addEventListener('beforeunload', fetchAPI());
         return () => window.removeEventListener('beforeunload', fetchAPI());
-    }, []);
+    }, [newPage]);
     return (
         <div className={cx('wrapper')}>
             {render.map((item) => (
