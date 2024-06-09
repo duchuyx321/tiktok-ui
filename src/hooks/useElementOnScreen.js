@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 const useElementOnScreen = (options, targetRef) => {
-    const [isVisibile, setIsVisible] = useState();
+    const [isVisibile, setIsVisible] = useState(false);
     const callbackFunction = (entries) => {
         const [entry] = entries; //const entry = entries[0]
         setIsVisible(entry.isIntersecting);

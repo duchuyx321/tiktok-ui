@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Style from './Home.module.scss';
 import Content from '~/components/Content';
 import * as videoService from '~/service/videoService';
@@ -7,22 +7,43 @@ import * as videoService from '~/service/videoService';
 const cx = classNames.bind(Style);
 
 function Home() {
+    const MaxPage = 34;
     const [render, setRender] = useState([]);
-    const [newPage, setNewPage] = useState('1');
+    const [page, setPage] = useState(Math.floor(Math.random() * MaxPage) + 1);
 
+    const observer = useRef();
+
+    const lastVideoElement = useCallback((node) => {
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && page < MaxPage) {
+                setPage((prevPage) => prevPage + 1);
+            }
+        });
+        if (node) observer.current.observe(node);
+    }, []);
     useEffect(() => {
-        const fetchAPI = async (page = newPage) => {
+        const fetchAPI = async () => {
             const result = await videoService.videos('for-you', page);
-            setRender(result);
+            setRender((props) => [...props, ...result]);
         };
-        window.addEventListener('beforeunload', fetchAPI());
-        return () => window.removeEventListener('beforeunload', fetchAPI());
-    }, [newPage]);
+        fetchAPI();
+    }, [page]);
     return (
         <div className={cx('wrapper')}>
-            {render.map((item) => (
-                <Content key={item.id} data={item} />
-            ))}
+            {render.map((item, index) => {
+                if (render.length === index + 1) {
+                    return (
+                        <Content
+                            key={item.id}
+                            data={item}
+                            ref={lastVideoElement}
+                        />
+                    );
+                } else {
+                    return <Content key={item.id} data={item} />;
+                }
+            })}
         </div>
     );
 }

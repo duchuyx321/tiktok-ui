@@ -107,13 +107,15 @@ function Content({ data }) {
         setVolume(value);
     };
 
-    const togglePlayPase = () => {
-        if (playing) {
-            videoRef.current.pause();
+    const togglePlayPause = () => {
+        const video = videoRef.current;
+        if (video.paused) {
+            video.play();
+            setPlaying(true);
         } else {
-            videoRef.current.play();
+            video.pause();
+            setPlaying(false);
         }
-        setPlaying(!playing);
     };
 
     const handleLink = () => {
@@ -177,7 +179,7 @@ function Content({ data }) {
                 <div className={cx('controls')}>
                     <button
                         className={cx('controls-btn')}
-                        onClick={() => togglePlayPase()}
+                        onClick={() => togglePlayPause()}
                     >
                         {playing ? (
                             <FontAwesomeIcon icon={faPause} />
