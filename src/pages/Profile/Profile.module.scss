@@ -1,0 +1,131 @@
+.wrapper {
+    padding: 32px 24px 36px;
+}
+
+.user-info {
+    margin-bottom: 20px;
+}
+.user-info-header {
+    display: flex;
+    min-width: 530px;
+    min-height: 100px;
+}
+
+// avatar
+.wrapper-avatar {
+    width: 116px;
+    height: 116px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+// container
+
+.user-info-Container {
+    margin-left: 20px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.nickname {
+    font-size: 3.2rem;
+    line-height: 3.8rem;
+    margin-bottom: 4px;
+}
+.name {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.user-info-container-btn {
+    min-width: 100px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    padding: 8px 16px;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    background-color: transparent;
+    border-radius: 4px;
+    margin-top: 16px;
+    &:hover {
+        border-color: rgb(208, 209, 211);
+        background-color: rgb(248, 248, 248);
+    }
+    &:active {
+        border-color: rgb(208, 209, 211);
+        background-color: rgb(241, 241, 242);
+    }
+}
+.user-info-container-btn-title {
+    font-size: 16px;
+    font-family: 100;
+    margin-left: 5px;
+    margin-top: 4px;
+}
+
+// count Number following
+.user-info-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 22px;
+    margin-bottom: 20px;
+}
+
+.countFollow {
+    display: flex;
+}
+
+.countFollow-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-size: 16px;
+    color: rgba(18, 18, 18, 0.75);
+}
+
+.countNum {
+    font-size: 18px;
+    color: var(--text-color);
+    margin-right: 6px;
+}
+
+.story {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    margin-top: 10px;
+}
+
+// list menu
+.listMenu-btn {
+    min-width: 100px;
+    min-height: 4.4rem;
+    padding: 0 3.2rem;
+    font-weight: 600;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(115, 116, 123);
+    font-size: 18px;
+    outline: none;
+    transition: transform 0.5s ease, border-bottom 0.5s ease;
+    &:focus-within {
+        color: var(--text-color);
+        border-bottom: 1px solid var(--text-color);
+    }
+}
+
+.icon {
+    margin-right: 8px;
+}

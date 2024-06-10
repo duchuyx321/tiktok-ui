@@ -24,8 +24,8 @@ function Content({ data }) {
     const [playing, setPlaying] = useState(false);
     const [like, setLike] = useState(false);
     const [width, setWidth] = useState('0');
-    const [widthVolume, setWidthVolume] = useState('10');
-    const [volume, setVolume] = useState('0.1');
+    const [widthVolume, setWidthVolume] = useState('0');
+    const [volume, setVolume] = useState('0');
     const [duration, setDuration] = useState('0');
     const [draw, setDraw] = useState('0');
     const videoRef = useRef();
@@ -39,6 +39,7 @@ function Content({ data }) {
     const navigate = useNavigate();
 
     const isVisible = useElementOnScreen(options, videoRef);
+
     useEffect(() => {
         const video = videoRef.current;
 
@@ -108,19 +109,19 @@ function Content({ data }) {
     };
 
     const togglePlayPause = () => {
-        const video = videoRef.current;
-        if (video.paused) {
-            video.play();
-            setPlaying(true);
+        if (playing) {
+            videoRef.current.pause();
+            setPlaying(!playing);
         } else {
-            video.pause();
-            setPlaying(false);
+            videoRef.current.play();
+            setPlaying(!playing);
         }
     };
 
     const handleLink = () => {
         navigate(`/@${data.user.nickname}`);
     };
+
     const CheckIsLike = (heart = false, favourite = false) => {
         if (like && heart) {
             return cx('toggle-btn', 'heart');
@@ -129,6 +130,7 @@ function Content({ data }) {
         }
         return cx('toggle-btn');
     };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-video')}>
@@ -137,6 +139,7 @@ function Content({ data }) {
                     className={cx('video')}
                     ref={videoRef}
                     loop
+                    muted={volume === 0}
                     autoPlay={true}
                     onVolumeChange={() => widthVolume}
                 ></video>

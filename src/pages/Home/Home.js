@@ -13,15 +13,19 @@ function Home() {
 
     const observer = useRef();
 
-    const lastVideoElement = useCallback((node) => {
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && page < MaxPage) {
-                setPage((prevPage) => prevPage + 1);
-            }
-        });
-        if (node) observer.current.observe(node);
-    }, []);
+    const lastVideoElement = useCallback(
+        (node) => {
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && page < MaxPage) {
+                    setPage((prevPage) => prevPage + 1);
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+        [page, MaxPage],
+    );
+
     useEffect(() => {
         const fetchAPI = async () => {
             const result = await videoService.videos('for-you', page);
@@ -35,9 +39,9 @@ function Home() {
                 if (render.length === index + 1) {
                     return (
                         <Content
+                            ref={lastVideoElement}
                             key={item.id}
                             data={item}
-                            ref={lastVideoElement}
                         />
                     );
                 } else {
