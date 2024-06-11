@@ -4,16 +4,17 @@ import style from '~/pages/Profile/Profile.module.scss';
 
 const cx = classNames.bind(style);
 
-function ListVideo({}) {
+function ListVideo({ data }) {
+    console.log(data);
     return (
         <div className={cx('listVideo-Wrapper')}>
             <video
-                src={'dfsdfd'}
                 className={cx('video')}
-                loop
+                src={data.file_url}
                 muted
-                autoPlay={true}
+                autoPlay
             ></video>
+            <h5 className={cx('video-title')}>{data.description}</h5>
         </div>
     );
 }
