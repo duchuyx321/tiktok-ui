@@ -17,6 +17,9 @@
     &.disabled {
         pointer-events: none;
         opacity: 0.5;
+        color: rgba(22, 24, 35, 0.6);
+        background-color: rgba(22, 24, 35, 0.2);
+        border: none;
     }
 }
 
@@ -42,8 +45,7 @@
     border-color: var(--primary);
 
     &:hover {
-        border-color: var(--primary);
-        background: linear-gradient(
+        border-color: linear-gradient(
                 0deg,
                 rgba(0, 0, 0, 0.06),
                 rgba(0, 0, 0, 0.06)
@@ -89,13 +91,11 @@
 }
 
 .large {
+    width: 100%;
     min-height: 48px;
     font-size: 18px;
     line-height: 25px;
     font-weight: 600;
-    &:hover {
-        background-color: rgba(254, 44, 85, 0.06);
-    }
 }
 
 // icons

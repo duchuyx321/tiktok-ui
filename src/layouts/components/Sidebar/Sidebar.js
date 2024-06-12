@@ -8,20 +8,23 @@ import MenuItem from '~/layouts/components/Sidebar/Menu/MenuItem';
 import config from '~/config';
 import * as userService from '~/service/userService';
 import { IconFollowing, IconHome, IconLive } from '~/components/icon';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(style);
 
 function Sidebar() {
-    const current = true;
+    const current = false;
     const [suggestedUser, setSuggestedUser] = useState([]);
 
     useEffect(() => {
-        const fetchAPI = async () => {
-            const data = await userService.setSuggested();
+        if (localStorage.getItem('token')) {
+            const fetchAPI = async () => {
+                const data = await userService.setSuggested();
 
-            return setSuggestedUser(data);
-        };
-        fetchAPI();
+                return setSuggestedUser(data);
+            };
+            fetchAPI();
+        }
     }, []);
 
     return (
@@ -43,7 +46,17 @@ function Sidebar() {
                     icon={<IconLive />}
                 />
             </Menu>
-            {current && (
+            {!current ? (
+                <div className={cx('wrapperNotify')}>
+                    <p className={cx('notifyLogin')}>
+                        Đăng nhập để follow các tác giả, thích video và xem bình
+                        luận
+                    </p>
+                    <Button outline large>
+                        Đăng Nhập
+                    </Button>
+                </div>
+            ) : (
                 <AccountsFollow
                     label="Các Tài khoản Đang Follow"
                     data={suggestedUser}

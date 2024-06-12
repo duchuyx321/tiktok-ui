@@ -1,15 +1,28 @@
 import axios from 'axios';
 
-const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC90aWt0b2suZnVsbHN0YWNrLmVkdS52blwvYXBpXC9hdXRoXC9yZWdpc3RlciIsImlhdCI6MTcxNzEzMDI4NSwiZXhwIjoxNzE5NzIyMjg1LCJuYmYiOjE3MTcxMzAyODUsImp0aSI6IkU1ejlOeUFjbGNLTVMzaWgiLCJzdWIiOjY3NTMsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.ekFSCV5HI9SyLt2pv6_gxM6xKDmjfOQT2a8B9VgAP_Y';
-
 const httpsRequest = axios.create({
     baseURL: `https://tiktok.fullstack.edu.vn/api/`,
-    headers: { Authorization: `Bearer ${token}` },
 });
+
+httpsRequest.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `bearer${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(new Error(error.message));
+    },
+);
 
 export const get = async (path, options = {}) => {
     const response = await httpsRequest.get(path, options);
+    return response.data;
+};
+export const post = async (path, options = {}) => {
+    const response = await httpsRequest.post(path, options);
     return response.data;
 };
 

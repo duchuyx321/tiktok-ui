@@ -27,6 +27,8 @@ import { MessageIcon, NotifyIcon } from '~/components/icon';
 import SupMessage from '~/components/popper/SupMessage';
 import Image from '~/components/image';
 import Search from '~/layouts/components/Search';
+import { useState } from 'react';
+import LoginRegister from '~/components/Login/LoginRegister';
 
 const cx = classNames.bind(style);
 
@@ -201,34 +203,34 @@ const MENU_ITEM = [
     },
 ];
 const numMessage = '99+';
-function Home() {
+function Header() {
     // handle logic
     const handleMenuOnchange = (item) => {
         console.log(item);
     };
 
-    const currentUse = true;
+    const currentUse = false;
+    const [hidden, setHidden] = useState(true);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 {/* Logo */}
-
                 <Link to={config.routes.home}>
                     <img src={images.logo.default} alt="tiktok" />
                 </Link>
-
                 {/* search */}
                 <Search />
-
                 {/* Action */}
                 <div className={cx('action')}>
-                    <Button
-                        outlineText
-                        to="/upload"
-                        leftIcon={<FontAwesomeIcon icon={faPlus} />}
-                    >
-                        Upload
-                    </Button>
+                    {currentUse && (
+                        <Button
+                            outlineText
+                            to="/upload"
+                            leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                        >
+                            Upload
+                        </Button>
+                    )}
                     {currentUse ? (
                         <>
                             <Tippy
@@ -253,7 +255,7 @@ function Home() {
                             </Tippy>
                         </>
                     ) : (
-                        <Button primary to="/">
+                        <Button primary onClick={() => setHidden(!hidden)}>
                             Đăng nhập
                         </Button>
                     )}
@@ -276,8 +278,9 @@ function Home() {
                     </Menu>
                 </div>
             </div>
+            {hidden && <LoginRegister />}
         </div>
     );
 }
 
-export default Home;
+export default Header;

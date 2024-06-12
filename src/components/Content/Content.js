@@ -12,7 +12,7 @@ import {
     faVolumeXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, forwardRef } from 'react';
 
 import Style from './Content.module.scss';
 import { useElementOnScreen } from '~/hooks';
@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(Style);
 
-function Content({ data }) {
+const Content = forwardRef(({ data }, ref) => {
     const [playing, setPlaying] = useState(false);
     const [like, setLike] = useState(false);
     const [width, setWidth] = useState('0');
@@ -255,6 +255,6 @@ function Content({ data }) {
             </div>
         </div>
     );
-}
+});
 
 export default Content;

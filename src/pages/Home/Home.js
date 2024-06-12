@@ -29,7 +29,7 @@ function Home() {
     useEffect(() => {
         const fetchAPI = async () => {
             const result = await videoService.videos('for-you', page);
-            setRender((props) => [...props, ...result]);
+            setRender(result);
         };
         fetchAPI();
     }, [page]);
