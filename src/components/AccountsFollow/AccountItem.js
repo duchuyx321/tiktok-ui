@@ -6,12 +6,17 @@ import style from '~/components/AccountsFollow/AccountsFollow.module.scss';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(style);
 
 function AccountItem({ data }) {
+    const [params, setParams] = useState('');
+    useEffect(() => {
+        setParams(data.nickname);
+    }, [data.nickname]);
     return (
-        <Link className={cx('account-item')} to={`@${data.nickname}`}>
+        <Link className={cx('account-item')} to={`@${params}`}>
             <Image
                 className={cx('avatar')}
                 src={data.avatar}
@@ -29,8 +34,7 @@ function AccountItem({ data }) {
                     )}
                 </p>
                 <span className={cx('name')}>
-                    {' '}
-                    {`${data.first_name} ${data.last_name}`}{' '}
+                    {`${data.first_name} ${data.last_name}`}
                 </span>
             </div>
         </Link>

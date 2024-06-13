@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 
 import { Wrapper as PopperWrapper } from '~/components/popper';
 import MenuItem from '~/components/popper/menu/MenuItem';
 import style from '~/components/popper/menu/Menu.module.scss';
 import classNames from 'classnames/bind';
-import Header from '~/layouts/components/Header';
+import Header from '~/components/popper/menu/Header';
 
 const cx = classNames.bind(style);
 
@@ -16,15 +16,14 @@ function Menu({
     children,
     items = [],
     hiddenOnClick = false,
-    nickname,
     onChange = defaultFn,
 }) {
-    console.log(items);
-
     const [history, setHistory] = useState([{ data: items }]); // tạo mảng chứa một oject item để có thể xử lí thêm xóa
+    useEffect(() => {
+        setHistory([{ data: items }]);
+    }, [items]);
     const current = history[history.length - 1];
 
-    console.log(history);
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children; // đẩy sang kiểu boolean
@@ -86,7 +85,6 @@ Menu.propTypes = {
     items: PropTypes.array,
     hiddenOnClick: PropTypes.bool,
     onChange: PropTypes.func,
-    nickname: PropTypes.string,
 };
 
 export default Menu;

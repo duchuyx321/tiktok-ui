@@ -141,21 +141,6 @@ const MenuItem = [
                     code: 'en',
                     title: 'English',
                 },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: ' Tiếng Việt ',
-                },
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: ' Tiếng Việt ',
-                },
             ],
         },
     },
@@ -193,7 +178,7 @@ const MENU_ITEM = [
     {
         iconLeft: <FontAwesomeIcon icon={faGear} />,
         title: 'Cài Đặt',
-        to: '/setting',
+        to: '/settings',
     },
     ...MenuItem,
     {
@@ -202,6 +187,14 @@ const MENU_ITEM = [
         separate: true,
     },
 ];
+const updateMENUITEM = (nickname) => {
+    return MENU_ITEM.map((item) => {
+        if (item.title === 'Xem Hồ sơ' || item.title === 'Yêu Thích') {
+            return { ...item, to: `/@${nickname}` };
+        }
+        return item;
+    });
+};
 const numMessage = '99+';
 function Header() {
     const [hidden, setHidden] = useState(false);
@@ -275,9 +268,12 @@ function Header() {
                         </Button>
                     )}
                     <Menu
-                        items={currentUse ? MENU_ITEM : MenuItem}
+                        items={
+                            currentUse
+                                ? updateMENUITEM(user.nickname)
+                                : MenuItem
+                        }
                         onChange={handleMenuOnchange}
-                        nickname={user.nickname}
                     >
                         {currentUse ? (
                             <Image

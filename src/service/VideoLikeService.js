@@ -1,6 +1,6 @@
 import * as request from '~/util/httpsRequest';
 
-export const VideoLikes = async (nickName = '@duchuyx321') => {
+export const VideoLikes = async (nickName = '') => {
     try {
         const res = await request.get(`users/${nickName}`);
         return res.data;
