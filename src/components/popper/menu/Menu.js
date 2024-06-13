@@ -6,7 +6,7 @@ import { Wrapper as PopperWrapper } from '~/components/popper';
 import MenuItem from '~/components/popper/menu/MenuItem';
 import style from '~/components/popper/menu/Menu.module.scss';
 import classNames from 'classnames/bind';
-import Header from './Header';
+import Header from '~/layouts/components/Header';
 
 const cx = classNames.bind(style);
 
@@ -16,10 +16,15 @@ function Menu({
     children,
     items = [],
     hiddenOnClick = false,
+    nickname,
     onChange = defaultFn,
 }) {
+    console.log(items);
+
     const [history, setHistory] = useState([{ data: items }]); // tạo mảng chứa một oject item để có thể xử lí thêm xóa
     const current = history[history.length - 1];
+
+    console.log(history);
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children; // đẩy sang kiểu boolean
@@ -81,6 +86,7 @@ Menu.propTypes = {
     items: PropTypes.array,
     hiddenOnClick: PropTypes.bool,
     onChange: PropTypes.func,
+    nickname: PropTypes.string,
 };
 
 export default Menu;

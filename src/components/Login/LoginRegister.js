@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import style from './LoginRegister.module.scss';
 import Button from '~/components/Button';
 import * as loginService from '~/service/loginService';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(style);
 
@@ -17,9 +18,12 @@ function LoginRegister() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isError, setIsError] = useState(false);
+    const [render, setRender] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const Navigate = useNavigate();
     const handleLogin = async () => {
+        setLoading(true);
         if (!email || password === '') {
             console.error('Không có email || password');
         }
@@ -28,76 +32,89 @@ function LoginRegister() {
         if (result?.meta?.token) {
             localStorage.setItem('token', result.meta.token);
             Navigate('/');
+            window.location.reload();
+            setRender(false);
         }
-        if (result && result.request && result.request.status === 401) {
+        if (result?.request && result.request.status === 401) {
             setIsError(true);
             console.log(result.code);
         }
+        setLoading(false);
     };
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('wrapper-login')}>
-                <div className={cx('from-login')}>
-                    <div className={cx('from-login-wrapper')}>
-                        <h1 className={cx('title-login')}>Đăng Nhập</h1>
-                        <input
-                            type="email"
-                            className={cx('inputLogin')}
-                            placeholder="Nhập địa chỉ Email"
-                            onChange={(e) => {
-                                setIsEmail(e.target.validity.valid);
-                                setEmail(e.target.value);
-                            }}
-                        />
-                        <div className={cx('passLogin')}>
+        render && (
+            <div className={cx('wrapper')}>
+                <div className={cx('wrapper-login')}>
+                    <div className={cx('from-login')}>
+                        <div className={cx('from-login-wrapper')}>
+                            <h1 className={cx('title-login')}>Đăng Nhập</h1>
                             <input
-                                type={hiddenPass ? 'text' : 'password'}
+                                type="email"
                                 className={cx('inputLogin')}
-                                placeholder="Nhập mật khẩu "
-                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Nhập địa chỉ Email"
+                                onChange={(e) => {
+                                    setIsEmail(e.target.validity.valid);
+                                    setEmail(e.target.value);
+                                }}
                             />
-                            <button
-                                className={cx('hiddenPass')}
-                                onClick={() => setHiddenPass(!hiddenPass)}
+                            <div className={cx('passLogin')}>
+                                <input
+                                    type={hiddenPass ? 'text' : 'password'}
+                                    className={cx('inputLogin')}
+                                    placeholder="Nhập mật khẩu "
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                />
+                                <button
+                                    className={cx('hiddenPass')}
+                                    onClick={() => setHiddenPass(!hiddenPass)}
+                                >
+                                    {hiddenPass ? (
+                                        <FontAwesomeIcon icon={faEye} />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faEyeSlash} />
+                                    )}
+                                </button>
+                            </div>
+                            {isError && (
+                                <p className={cx('title-error')}>
+                                    Email hoặc mật khẩu không đúng
+                                </p>
+                            )}
+                            <Button
+                                primary
+                                large
+                                disabled={!isEmail || password === ''}
+                                className={cx('login-btn')}
+                                onClick={handleLogin}
                             >
-                                {hiddenPass ? (
-                                    <FontAwesomeIcon icon={faEye} />
-                                ) : (
-                                    <FontAwesomeIcon icon={faEyeSlash} />
+                                {loading && (
+                                    <FontAwesomeIcon
+                                        icon={faSpinner}
+                                        className={cx('login-loading')}
+                                    />
                                 )}
-                            </button>
+                                Đăng Nhập
+                            </Button>
                         </div>
-                        {isError && (
-                            <p className={cx('title-error')}>
-                                Email hoặc mật khẩu không đúng
-                            </p>
-                        )}
-                        <Button
-                            primary
-                            large
-                            disabled={!isEmail || password === ''}
-                            className={cx('login-btn')}
-                            onClick={handleLogin}
+                    </div>
+                    <div className={cx('changeFrame')}>
+                        <p className={cx('changeFrame-title')}>
+                            {!change
+                                ? 'Bạn chưa có tài khoản?'
+                                : 'Bạn đã có tài khoản'}
+                        </p>
+                        <button
+                            className={cx('changeFrame-btn')}
+                            onClick={() => setChange(!change)}
                         >
-                            Đăng Nhập
-                        </Button>
+                            {change ? ' Đăng nhập' : ' Đăng kí'}
+                        </button>
                     </div>
                 </div>
-                <div className={cx('changeFrame')}>
-                    <p className={cx('changeFrame-title')}>
-                        {!change
-                            ? 'Bạn chưa có tài khoản?'
-                            : 'Bạn đã có tài khoản'}
-                    </p>
-                    <button
-                        className={cx('changeFrame-btn')}
-                        onClick={() => setChange(!change)}
-                    >
-                        {change ? ' Đăng nhập' : ' Đăng kí'}
-                    </button>
-                </div>
             </div>
-        </div>
+        )
     );
 }
 

@@ -27,7 +27,8 @@ import { MessageIcon, NotifyIcon } from '~/components/icon';
 import SupMessage from '~/components/popper/SupMessage';
 import Image from '~/components/image';
 import Search from '~/layouts/components/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import * as userService from '~/service/userService';
 import LoginRegister from '~/components/Login/LoginRegister';
 
 const cx = classNames.bind(style);
@@ -168,17 +169,16 @@ const MenuItem = [
         title: 'Phím Tắt trên bàn Phím',
     },
 ];
-
 const MENU_ITEM = [
     {
         iconLeft: <FontAwesomeIcon icon={faUserLarge} />,
         title: 'Xem Hồ sơ',
-        to: config.routes.nickname,
+        to: '',
     },
     {
         iconLeft: <FontAwesomeIcon icon={faBookmark} />,
         title: 'Yêu Thích',
-        to: config.routes.nickname,
+        to: '',
     },
     {
         iconLeft: <FontAwesomeIcon icon={faCoins} />,
@@ -204,13 +204,28 @@ const MENU_ITEM = [
 ];
 const numMessage = '99+';
 function Header() {
+    const [hidden, setHidden] = useState(false);
+    const [user, setUser] = useState({});
+
+    const [currentUse, setCurrentUse] = useState(
+        !!localStorage.getItem('token'),
+    );
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            const fetchAPI = async () => {
+                const result = await userService.user();
+                setUser(result);
+            };
+            fetchAPI();
+            setCurrentUse(true);
+        }
+    }, [currentUse]);
+
     // handle logic
     const handleMenuOnchange = (item) => {
         console.log(item);
     };
-
-    const currentUse = false;
-    const [hidden, setHidden] = useState(true);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -262,12 +277,13 @@ function Header() {
                     <Menu
                         items={currentUse ? MENU_ITEM : MenuItem}
                         onChange={handleMenuOnchange}
+                        nickname={user.nickname}
                     >
                         {currentUse ? (
                             <Image
                                 className={cx('currentUse-avatar')}
-                                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/74d110fdfsdfsd8f26d311cbe94c9f8781e8d0~c5_100x100.jpeg?lk3s=a5d48078&nonce=71935&refresh_token=33f9b5ec1d223de724eb063a603629ee&x-expires=1716732000&x-signature=4QVAJgmPxqLMAaHYTh2MCdnuXTY%3D&shp=a5d48078&shcp=81f88b70"
-                                alt="Lê Đức Huy "
+                                src={user.avatar}
+                                alt={user.nickname}
                                 fallback="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/74d110fb8f26d311cbe94c9f8781e8d0~c5_100x100.jpeg?lk3s=a5d48078&nonce=71935&refresh_token=33f9b5ec1d223de724eb063a603629ee&x-expires=1716732000&x-signature=4QVAJgmPxqLMAaHYTh2MCdnuXTY%3D&shp=a5d48078&shcp=81f88b70"
                             />
                         ) : (

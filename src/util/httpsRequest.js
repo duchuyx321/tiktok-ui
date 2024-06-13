@@ -8,7 +8,7 @@ httpsRequest.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
         if (token) {
-            config.headers.Authorization = `bearer${token}`;
+            config.headers.Authorization = `bearer ${token}`;
         }
         return config;
     },

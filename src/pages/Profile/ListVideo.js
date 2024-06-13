@@ -5,7 +5,6 @@ import style from '~/pages/Profile/Profile.module.scss';
 const cx = classNames.bind(style);
 
 function ListVideo({ data }) {
-    console.log(data);
     return (
         <div className={cx('listVideo-Wrapper')}>
             <video

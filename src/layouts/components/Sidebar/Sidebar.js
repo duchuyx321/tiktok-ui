@@ -6,26 +6,26 @@ import style from '~/layouts/components/Sidebar/Sidebar.module.scss';
 import Menu from '~/layouts/components/Sidebar/Menu/Menu';
 import MenuItem from '~/layouts/components/Sidebar/Menu/MenuItem';
 import config from '~/config';
-import * as userService from '~/service/userService';
+import * as userFlService from '~/service/userFlService';
 import { IconFollowing, IconHome, IconLive } from '~/components/icon';
 import Button from '~/components/Button';
 
 const cx = classNames.bind(style);
 
 function Sidebar() {
-    const current = false;
+    const [current, setCurrent] = useState(false);
     const [suggestedUser, setSuggestedUser] = useState([]);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
             const fetchAPI = async () => {
-                const data = await userService.setSuggested();
-
+                const data = await userFlService.setSuggested();
+                setCurrent(true);
                 return setSuggestedUser(data);
             };
             fetchAPI();
         }
-    }, []);
+    }, [current]);
 
     return (
         <aside className={cx('wrapper')}>
