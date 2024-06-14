@@ -6,17 +6,40 @@ import {
     faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 import style from './Uploading.module.scss';
 import Button from '~/components/Button';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import * as uploadService from '~/service/uploadService';
 import { faFileVideo } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(style);
 
 function Uploading() {
     const [file, setFile] = useState();
+    const [description, setDescription] = useState('');
+    const [render, setRender] = useState({});
+    const [videoDuration, setVideoDuration] = useState(0);
+    const [content, setContent] = useState('');
+    const [isFile, setIsFile] = useState(false);
     const inputRef = useRef();
+    const videoRef = useRef();
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (isFile) {
+            if (
+                video &&
+                video.duration !== Infinity &&
+                !isNaN(video.duration)
+            ) {
+                setVideoDuration(video.duration);
+            }
+        }
+    }, [isFile]);
+
+    const navigate = useNavigate();
 
     const handleOnClick = () => {
         if (inputRef.current) {
@@ -25,13 +48,36 @@ function Uploading() {
     };
 
     const handleOnChange = (e) => {
-        console.log(e.target.files[0]);
+        setDescription(e.target.files[0]);
         setFile(URL.createObjectURL(e.target.files[0]));
+        setIsFile(true);
+        setContent(e.target.files[0].name);
     };
-    console.log(file);
+
+    const handleOnPost = () => {
+        const fetchAPI = async () => {
+            const result = await uploadService.create(content, file);
+            setRender(result);
+        };
+        fetchAPI();
+    };
+    console.log(render);
+
+    const handleOnCancel = () => {
+        navigate('/');
+    };
+
+    const handleOnContent = (e) => {
+        setContent(e);
+    };
+
+    const convertMB = (num) => {
+        return (num / (1024 * 1024)).toFixed(2);
+    };
+
     return (
         <div className={cx('wrapper')}>
-            {!!file ? (
+            {!isFile ? (
                 <div className={cx('wrapper-upload')}>
                     <label htmlFor="upload">
                         <div className={cx('layout')}>
@@ -111,15 +157,21 @@ function Uploading() {
             ) : (
                 <div className={cx('wrapper-upload-before')}>
                     <div className={cx('upload-before-title')}>
-                        <h5>Tiêu đề video </h5>
+                        <h5 className={cx('upload-before-title-h5')}>
+                            {description.name}
+                        </h5>
                         <div className={cx('upload-before-data')}>
                             <span className={cx('data')}>
                                 dung lượng :
-                                <p className={cx('data-number')}>30MB</p>
+                                <p className={cx('data-number')}>
+                                    {`${convertMB(description.size)}MB`}
+                                </p>
                             </span>
-                            <span className={cx('time')}>
+                            <span className={cx('data')}>
                                 Thời lượng :
-                                <p className={cx('time-num')}>23s</p>
+                                <p className={cx('data-number')}>
+                                    {Math.floor(videoDuration)}
+                                </p>
                             </span>
                         </div>
                         <div className={cx('upload-before-content')}>
@@ -132,29 +184,51 @@ function Uploading() {
                                 )}
                             >
                                 <input
+                                    value={content}
                                     type="text"
                                     className={cx(
                                         'upload-before-content-title-wrapper-input',
                                     )}
+                                    onChange={(e) =>
+                                        handleOnContent(e.target.value)
+                                    }
                                 />
                                 <p
                                     className={cx(
                                         'upload-before-content-title-wrapper-length',
                                     )}
                                 >
-                                    0/2200
+                                    {content.length}/2200
                                 </p>
-                                <div className={cx('thumbnail_time')}>
-                                    <p className={cx('img-time')}>
-                                        Chụp ảnh bìa vào giây thứ mấy
-                                    </p>
-                                    <input
-                                        type="text"
-                                        className={cx('num-time')}
-                                    />
-                                </div>
+                            </div>
+                            <div className={cx('upload-before-btn')}>
+                                <Button
+                                    primary
+                                    className={cx('post')}
+                                    onClick={handleOnPost}
+                                >
+                                    Đăng
+                                </Button>
+                                <Button
+                                    outline
+                                    className={cx('cancel')}
+                                    onClick={handleOnCancel}
+                                >
+                                    Hủy bỏ
+                                </Button>
                             </div>
                         </div>
+                    </div>
+                    <div className={cx('upload-video')}>
+                        <video
+                            muted
+                            src={file}
+                            autoPlay
+                            ref={videoRef}
+                            loop
+                            controls
+                            className={cx('video')}
+                        ></video>
                     </div>
                 </div>
             )}
