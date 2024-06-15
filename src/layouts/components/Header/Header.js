@@ -217,14 +217,18 @@ function Header() {
 
     // handle logic
     const handleMenuOnchange = (item) => {
-        console.log(item);
+        if (item.title === 'Đăng Xuất') {
+            console.log(item);
+            localStorage.removeItem('token');
+            setCurrentUse(false);
+        }
     };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
                 {/* Logo */}
                 <Link to={config.routes.home}>
-                    <img src={images.logo.default} alt="tiktok" />
+                    <Image src={images.logo.default} alt="tiktok" />
                 </Link>
                 {/* search */}
                 <Search />
