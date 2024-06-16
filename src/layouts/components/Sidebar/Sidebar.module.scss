@@ -1,19 +1,9 @@
-.fixed {
-    width: 100%;
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    z-index: 11;
-    pointer-events: visibleFill;
-    .wrapper-aside {
-        margin-top: 60px;
-    }
-}
-.wrapper-aside {
+.wrapper {
     max-width: 250px;
     height: 100vh;
     background: transparent;
     padding: 20px 0 26px 8px;
+    position: fixed;
 }
 .wrapperNav {
     &::after {

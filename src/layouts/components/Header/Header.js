@@ -29,7 +29,8 @@ import Image from '~/components/image';
 import Search from '~/layouts/components/Search';
 import { useEffect, useState } from 'react';
 import * as userService from '~/service/userService';
-import LoginRegister from '~/components/Login/LoginRegister';
+
+import { useEvent } from '~/hooks/useEventContext';
 
 const cx = classNames.bind(style);
 
@@ -197,8 +198,8 @@ const updateMENUITEM = (nickname) => {
 };
 const numMessage = '99+';
 function Header() {
-    const [hidden, setHidden] = useState(false);
     const [user, setUser] = useState({});
+    const { setEvent } = useEvent();
 
     const [currentUse, setCurrentUse] = useState(
         !!localStorage.getItem('token'),
@@ -220,8 +221,13 @@ function Header() {
         if (item.title === 'Đăng Xuất') {
             console.log(item);
             localStorage.removeItem('token');
-            setCurrentUse(false);
+            window.location.reload();
         }
+    };
+
+    // handle Login
+    const handleOnLogin = () => {
+        setEvent(true);
     };
     return (
         <div className={cx('wrapper')}>
@@ -267,7 +273,7 @@ function Header() {
                             </Tippy>
                         </>
                     ) : (
-                        <Button primary onClick={() => setHidden(!hidden)}>
+                        <Button primary onClick={handleOnLogin}>
                             Đăng nhập
                         </Button>
                     )}
@@ -294,7 +300,6 @@ function Header() {
                     </Menu>
                 </div>
             </div>
-            {hidden && <LoginRegister />}
         </div>
     );
 }
